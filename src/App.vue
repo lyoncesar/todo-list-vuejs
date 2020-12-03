@@ -4,6 +4,7 @@
     <ul>
       <li>
         <ToDoItem label="My to do item" :done=true />
+        <toDoItem label="My second item" :done=false />
       </li>
     </ul>
   </div>
