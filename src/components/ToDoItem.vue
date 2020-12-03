@@ -5,10 +5,13 @@
   </div>
 </template>
 <script>
-  import uniqueId from 'lodash.uniqueid';
   export default {
     name: 'ToDoItem',
     props: {
+      id: {
+        required: true,
+        type: String
+      },
       label: {
         required: true,
         type: String
@@ -20,7 +23,6 @@
     },
     data() {
       return {
-        id: uniqueId('todo-'),
         isDone: this.done
       };
     },
