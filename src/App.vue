@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <h1>To-do list</h1>
+    <h1>My to-do list</h1>
     <ul>
       <li>
-        <ToDoItem />
+        <ToDoItem label="My to do item" :done=true />
       </li>
     </ul>
   </div>
