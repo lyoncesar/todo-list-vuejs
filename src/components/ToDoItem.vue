@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- The shorthand to 'v-bind' is ':' -->
     <input type="checkbox" v-bind:id="id" v-bind:checked="isDone" />
     <label v-bind:for="id">{{label}}</label>
   </div>

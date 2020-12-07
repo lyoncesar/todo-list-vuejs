@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1>My to-do list</h1>
-    <ToDoForm />
+    <ToDoForm @todo-added="addToDo" />
     <ul>
       <li v-for="item in ToDoItems" v-bind:key="item.id">
         <ToDoItem
@@ -34,6 +34,17 @@ export default {
         { id: uniqueId('todo-'), label: 'Create a to-do list', done: false }
       ]
     };
+  },
+  methods: {
+    addToDo(toDoLabel) {
+      this.ToDoItems.push(
+        {
+          id: uniqueId('todo-'),
+          label: toDoLabel,
+          done: false
+        }
+      );
+    }
   }
 }
 </script>
