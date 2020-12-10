@@ -2,18 +2,19 @@
   <div id="app">
     <h1>My to-do list</h1>
     <ToDoForm @todo-added="addToDo" />
+    <h2 id="list-summary">{{listSummary}}</h2>
     <ul aria-labelledby="list-summary" class="stack-large">
       <li v-for="item in ToDoItems" v-bind:key="item.id">
         <ToDoItem
           v-bind:id="item.id"
           v-bind:label="item.label"
           v-bind:done="item.done"
+          @checkbox-changed="updateDoneStatus(item.id)"
         />
       </li>
     </ul>
   </div>
 </template>
-
 <script>
 import ToDoForm from './components/ToDoForm.vue';
 import ToDoItem from './components/ToDoItem.vue';
@@ -44,11 +45,20 @@ export default {
           done: false
         }
       );
+    },
+    updateDoneStatus(toDoId) {
+      const toDoToUpdate = this.ToDoItems.find(item => item.id === toDoId)
+      toDoToUpdate.done = !toDoToUpdate.done
+    }
+  },
+  computed: {
+    listSummary() {
+      const numberFinishedItems = this.ToDoItems.filter(item =>item.done).length
+      return `${numberFinishedItems} out of ${this.ToDoItems.length} items completed`
     }
   }
 }
 </script>
-
 <style>
 /* Global styles */
 .btn {
