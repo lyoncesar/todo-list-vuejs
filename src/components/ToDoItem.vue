@@ -1,7 +1,13 @@
 <template>
   <div class="custom-checkbox">
     <!-- The shorthand to 'v-bind' is ':' -->
-    <input type="checkbox" v-bind:id="id" v-bind:checked="isDone" class="checkbox" />
+    <input
+      type="checkbox"
+      v-bind:id="id"
+      v-bind:checked="isDone"
+      @change="$emit('checkbox-changed')"
+      class="checkbox"
+    />
     <label v-bind:for="id" class="checkbox-label">{{label}}</label>
   </div>
 </template>
