@@ -1,17 +1,35 @@
 <template>
-  <div class="custom-checkbox">
-    <!-- The shorthand to 'v-bind' is ':' -->
-    <input
-      type="checkbox"
-      v-bind:id="id"
-      v-bind:checked="isDone"
-      @change="$emit('checkbox-changed')"
-      class="checkbox"
-    />
-    <label v-bind:for="id" class="checkbox-label">{{label}}</label>
+  <div class="stack-small" v-if="!isEditing">
+    <div class="custom-checkbox">
+      <!-- The shorthand to 'v-bind' is ':' -->
+      <input
+        type="checkbox"
+        v-bind:id="id"
+        :checked="isDone"
+        @change="$emit('checkbox-changed')"
+        class="checkbox"
+      />
+      <label v-bind:for="id" class="checkbox-label">{{label}}</label>
+    </div>
+    <div>
+      <button type="button" class="btn" @click="toggleToItemEditForm">
+        Edit <span class="visually-hidden">{{label}}</span>
+      </button>
+      <button type="button" class="btn btn__danger" @click="deleteToDo">
+        Delete <span class="visually-hidden">{{label}}</span>
+      </button>
+    </div>
   </div>
+  <ToDoItemEditForm
+    v-else
+    :id="id"
+    :label="label"
+    @item-edited="itemEdited"
+    @edit-canceled="editCancelled">
+  </ToDoItemEditForm>
 </template>
 <script>
+  import ToDoItemEditForm from "./ToDoItemEditForm";
   export default {
     name: 'ToDoItem',
     props: {
@@ -28,11 +46,30 @@
         type: Boolean
       }
     },
+    components: {
+      ToDoItemEditForm
+    },
     data() {
       return {
-        isDone: this.done
+        isDone: this.done,
+        isEditing: false
       };
     },
+    methods: {
+      deleteToDo() {
+        this.$emit('item-deleted');
+      },
+      toggleToItemEditForm() {
+        this.isEditing = true;
+      },
+      itemEdited(newLabel) {
+        this.$emit('item-edited', newLabel);
+        this.isEditing = false;
+      },
+      editCancelled() {
+        this.isEditing = false;
+      }
+    }
   };
 </script>
 <style scoped>
