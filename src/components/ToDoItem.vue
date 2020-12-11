@@ -51,7 +51,6 @@
     },
     data() {
       return {
-        isDone: this.done,
         isEditing: false
       };
     },
@@ -68,6 +67,11 @@
       },
       editCancelled() {
         this.isEditing = false;
+      }
+    },
+    computed: {
+      isDone() {
+        return this.done;
       }
     }
   };
