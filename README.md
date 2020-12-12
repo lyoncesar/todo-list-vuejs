@@ -1,4 +1,6 @@
-# moz-todo-vue
+# To-do list Vuejs
+
+This project was created to practice the know of Vuejs.
 
 ## Project setup
 ```
