@@ -2,7 +2,7 @@
   <div id="app">
     <h1>My to-do list</h1>
     <ToDoForm @todo-added="addToDo" />
-    <h2 id="list-summary">{{listSummary}}</h2>
+    <h2 id="list-summary" ref="listSummary" tabindex="-1" >{{listSummary}}</h2>
     <ul aria-labelledby="list-summary" class="stack-large">
       <li v-for="item in ToDoItems" v-bind:key="item.id">
         <!-- The $event is used to pass event data to methods -->
@@ -56,6 +56,7 @@ export default {
     deleteToDo(toDoId) {
       const itemIndex = this.ToDoItems.findIndex(item => item.id === toDoId);
       this.ToDoItems.splice(itemIndex, 1);
+      this.$refs.listSummary.focus();
     },
     editToDo(toDoId, newLabel) {
       const toDoToEdit = this.ToDoItems.find(item => item.id === toDoId);

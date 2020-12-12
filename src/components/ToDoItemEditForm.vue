@@ -4,7 +4,7 @@
       <label class="edit-label">Edit Name for &quot;{{label}}&quot;</label>
 
       <!-- The .lazy is use the change event instead input event. This means that Vue will only sync data when the input loses focus or the form is submitted. -->
-      <input type="text" :id="id" autocomplete="off" v-model.lazy.trim="newLabel" />
+      <input type="text" :id="id" ref="labelInput" autocomplete="off" v-model.lazy.trim="newLabel" />
     </div>
     <div class="btn-group">
       <button type="buttom" class="btn" @click="onCancel">
@@ -44,6 +44,10 @@ export default {
     onCancel() {
       this.$emit("edit-canceled");
     }
+  },
+  mounted() {
+    const labelInputRef = this.$refs.labelInput;
+    labelInputRef.focus();
   }
 };
 </script>
